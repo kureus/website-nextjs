@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, type ReactNode } from 'react'
-import Image from 'next/image'
 import { atom, useAtomValue } from 'jotai'
 
 import { cn } from '@/lib/utils'
@@ -19,11 +18,10 @@ export function FeatureTab({ idx, iconUrl, summary, children }: {
     <Details className={cn("feature-highlight-item", "p-5 w-full rounded-xl 2xl:rounded-r-none")} idx={idx} theIdxAtom={activeFeatureTabAtom}>
       <summary>
         <div className={cn("relative", "h-4 w-4 2xl:h-8 2xl:w-8")}>
-          <Image
+          <img
             src={iconUrl}
             alt=""
-            fill
-            className="icon untanglable"
+            className="icon untanglable w-full h-full"
           />
         </div>
         {summary}
@@ -38,11 +36,10 @@ export function FeatureTab({ idx, iconUrl, summary, children }: {
 export function FeatureTabPanel({ src }: { idx?: number, src: string, children?: ReactNode }) {
   return (
     <div className={cn("aspect-[834/782]", "relative")}>
-      <Image
+      <img
         src={src}
-        fill
         alt=""
-        className="object-fill untanglable"
+        className="object-fill untanglable w-full h-full"
       />
     </div>
   )
@@ -59,9 +56,9 @@ export function FeatureTabPanels({ children }: { children: ReactNode }) {
       ref={ref}
       className={cn(
         "feature-tab-panels",
-        "xl:col-start-13 xl:col-span-7 2xl:col-start-11 2xl:col-span-9 3xl:col-start-13 3xl:col-span-12",
+        "xl:col-start-11 xl:col-span-7 2xl:col-start-11 2xl:col-span-9 3xl:col-start-13 3xl:col-span-12",
         "ml-4 2xl:ml-0",
-        "4xl:absolute 4xl:left-[50vw] 4xl:w-[45vw]",
+        "absolute w-[60vw] xl:w-[45vw]",
         "aspect-[834/782]",
         "hidden xl:block rounded-5xl bg-gray-200 relative overflow-hidden"
       )}

@@ -1,15 +1,11 @@
 import { type ReactNode } from 'react'
 import { type Metadata } from 'next'
 
-import Image from 'next/image'
-import Link from 'next/link'
 import { VscCommentDiscussion, VscNote } from 'react-icons/vsc'
 
 import { cn } from '@/lib/utils'
-import Details from '@/components/Details'
 import DotBackground from '@/components/DotBackground'
 
-import { currentFeatureHighlightAtom } from './_atoms'
 import { NoCodeWizardStepTrigger, NoCodeWizardStepDetails, NoCodeWizardStepPreview } from './_components/NoCodeWizard'
 import { CodeExampleTab, CodeExampleCodeViewer } from './_components/CodeExampleTabs'
 import { ShowCaseTab, ShowCaseTabPanel } from './_components/ShowCaseTabs'
@@ -38,8 +34,14 @@ function Stats({ children, name }: { children: ReactNode, name: string }) {
 function SectionHero() {
   return (
     <section id="section-hero" className={cn("relative max-h-screen w-full", "section-hero")}>
-      <div className={cn("background", "absolute top-0 left-0 w-full min-h-full z-[-1] untanglable")}>
-        <Image src="/home/bg-first-screen.jpg" alt="" fill className="aspect-[3840/1980] object-cover" />
+      <div className={cn("background", "absolute top-0 left-0 w-full h-full z-[-1] untanglable overflow-hidden")}>
+        <video
+          className="object-cover aspect-[3840/1980] h-full min-w-full"
+          autoPlay muted loop
+        >
+          <source src="https://nft-assets.phala.world/network/bg20230605.mp4" type="video/mp4" />
+          <source src="https://nft-assets.phala.world/network/bg20230605.webm" type="video/webm" />
+        </video>
       </div>
       <div className={cn("flex flex-col h-screen justify-between items-center")}>
         {/* Temporary placeholder */}
@@ -60,7 +62,7 @@ function SectionHero() {
             >
               Let's Build!
             </a>
-            <a className={cn("btn btn-xl text-base btn-secondary justify-center")} href="https://discord.com/invite/phala" target="_blank" rel="noopener">
+            <a className={cn("btn btn-xl text-base btn-secondary justify-center")} href="https://discord.gg/gZjZuVHXtm" target="_blank" rel="noopener">
               Join Community
             </a>
           </div>
@@ -69,16 +71,14 @@ function SectionHero() {
         <div className={cn("safe-viewport", "grid gap-4 grid-cols-1 xl:grid-cols-20 3xl:grid-cols-24", "mb-6")}>
           <div className={cn("flex flex-col items-center gap-5 lg:flex-row lg:justify-between", "xl:col-start-2 xl:col-span-18 3xl:col-start-1 3xl:col-span-full")}>
             <div className="flex flex-row gap-5 items-center">
-              <Image
+              <img
                 src="/icons/gear.svg"
                 alt=""
-                className="svg-black mr-2.5 motion-safe:animate-spin untanglable"
-                width={37}
-                height={37}
+                className="svg-black mr-2.5 motion-safe:animate-spin untanglable w-9 h-9"
               />
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <Stats name="Online Workers">26,551</Stats>
-                <Stats name="Compute">19,1715 vCPU</Stats>
+                <Stats name="Compute">191,715 vCPU</Stats>
                 <Stats name="Cross-Chain TX">7,538</Stats>
                 <Stats name="TX">69,622,067</Stats>
               </div>
@@ -86,50 +86,43 @@ function SectionHero() {
 
             <div className="flex flex-col gap-2 items-end">
               <div className="flex flex-row gap-5">
-                <Image
+                <img
                   src="/home/Ethereum.png"
                   alt="Ethereum"
-                  width={65}
-                  height={65}
+                  className="w-16 h-16"
                 />
-                <Image
+                <img
                   src="/home/Bnbchain.png"
                   alt="Bnbchain"
-                  width={65}
-                  height={65}
+                  className="w-16 h-16"
                 />
-                <Image
+                <img
                   src="/home/Moonbean.png"
                   alt="Moonbean"
-                  width={65}
-                  height={65}
+                  className="w-16 h-16"
                 />
-                <Image
+                <img
                   src="/home/Arbittrum.png"
                   alt="Arbittrum"
-                  width={65}
-                  height={65}
+                  className="w-16 h-16"
                 />
-                <Image
+                <img
                   src="/home/Astar.png"
                   alt="Astar"
-                  width={65}
-                  height={65}
+                  className="w-16 h-16"
                 />
               </div>
               <a
-                href="https://docs.phala.network/developers/phat-contract/features"
+                href="https://docs.phala.network/developers/phat-contract/supported-chains"
                 className={cn("flex flex-row gap-2", "btn-view-all")}
                 target="_blank"
                 rel="noopener"
               >
                 <span className={cn("btn-link", "text-sm")}>View All Supported Networks</span>
-                <Image
+                <img
                   src="/icons/right-arrow.svg"
                   alt=""
-                  className="svg-secondary icon untanglable"
-                  width={13}
-                  height={13}
+                  className="svg-secondary icon untanglable h-3 w-3"
                 />
               </a>
             </div>
@@ -146,32 +139,17 @@ function SectionHero() {
 // Section Features
 //
 
-function FeatureHighlight({ idx, iconUrl, summary, children }: { idx: number, iconUrl: string, summary: string, children: ReactNode }) {
-  return (
-    <Details className={cn("feature-highlight-item")} idx={idx} theIdxAtom={currentFeatureHighlightAtom}>
-      <summary>
-        <Image
-          src={iconUrl}
-          alt=""
-          width={32}
-          height={32}
-          className="icon untanglable"
-        />
-        {summary}
-      </summary>
-      <div className="body">
-        {children}
-      </div>
-    </Details>
-  )
-}
-
 function SectionFeatures() {
   return (
     <section id="section-features" className={cn("relative lg:h-screen flex items-center")}>
       <DotBackground dotColor="#E2E8F0" bgColor="#F7FAFC" />
       <div className={cn("safe-viewport", "grid grid-cols-1 xl:grid-cols-20 3xl:grid-cols-24 grid-rows-7")}>
-        <div className={cn("col-start-1 col-span-full xl:col-span-12 2xl:col-span-10 3xl:col-start-3 3xl:col-span-10", "flex flex-col justify-between 4xl:gap-20", "py-8 3xl:py-16")}>
+        <div
+          className={cn(
+            "col-start-1 col-span-full xl:col-span-10 2xl:col-span-10 3xl:col-start-3 3xl:col-span-10",
+            "flex flex-col justify-center gap-5 4xl:gap-20", "py-8 3xl:py-16"
+          )}
+        >
           <header className={cn("flex flex-col gap-5", "ml-12 mb-6 2xl:mb-4")}>
             <h2 className={cn("font-extrabold text-2xl 2xl:text-5xl uppercase")}>Smart Contracts.</h2>
             <h3 className={cn("text-3xl 2xl:text-6xl tracking-wide uppercase")}>Now Smarter.</h3>
@@ -255,14 +233,14 @@ function SectionPitchIntro() {
         </header>
         <div className={cn("hidden xl:row-start-1 xl:col-end-19 xl:col-span-6 3xl:col-end-21 xl:flex flex-col justify-center")}>
           <div className="relative w-[300px] h-[420px]">
-            <Image
+            <img
               src="/home/experience-back.jpg"
               alt=""
               width={292}
               height={419}
               className="rounded-3xl overflow-hidden absolute left-[260px] top-[-80px] z-10 untanglable"
             />
-            <Image
+            <img
               src="/home/experience-front.jpg"
               alt=""
               width={292}
@@ -306,23 +284,19 @@ function BlueprintCard({ title, children, href, tags, illustration, live }: { ti
         {live ? (
           href ? (
             <a href={href} className={cn("flex flex-row items-center gap-3.5 mt-6")} target="_blank" rel="noopener">
-              <Image
+              <img
                 src="/icons/gear.svg"
                 alt=""
-                width={32}
-                height={32}
-                className={cn("svg-primary untanglable")}
+                className={cn("svg-primary untanglable w-8 h-8")}
               />
               <span className={cn("text-primary text-base font-extrabold")}>LIVE !</span>
             </a>
           ) : (
             <div className={cn("flex flex-row items-center gap-3.5 mt-6")}>
-              <Image
+              <img
                 src="/icons/gear.svg"
                 alt=""
-                width={32}
-                height={32}
-                className={cn("svg-primary untanglable")}
+                className={cn("svg-primary untanglable w-8 h-8")}
               />
               <span className={cn("text-primary text-base font-extrabold")}>LIVE !</span>
             </div>
@@ -330,12 +304,10 @@ function BlueprintCard({ title, children, href, tags, illustration, live }: { ti
         ) : null}
       </div>
       {illustration ? (
-        <Image
+        <img
           src={illustration}
           alt=""
-          width={250}
-          height={250}
-          className={cn("img", "absolute top-[25%] right-[-1%] z-0 opacity-25 untanglable")}
+          className={cn("img", "absolute top-[25%] right-[-1%] z-0 opacity-25 untanglable w-64 h-64")}
         />
       ) : null}
     </div>
@@ -427,12 +399,10 @@ function SectionPitchAccelerate() {
         )}>
           <a href="https://bricks.phala.network" className="btn btn-third flex-row w-full bg-[#6C37C9] py-5 px-10" target="_blank" rel="noopener">
             <span className="text-lg font-bold uppercase">Get your own LensAPI oracle now</span>
-            <Image
+            <img
               src="/icons/right-arrow.svg"
               alt=""
-              className="svg-white ml-5 inline-block"
-              width={24}
-              height={24}
+              className="svg-white ml-5 inline-block w-6 h-6"
               />
           </a>
         </div>
@@ -493,12 +463,10 @@ function SectionPitchAccelerate() {
               rel="noopener"
             >
               Learn about blueprints
-              <Image
+              <img
                 src="/icons/right-arrow.svg"
                 alt=""
-                className="svg-black ml-5 inline-block"
-                width={24}
-                height={24}
+                className="svg-black ml-5 inline-block w-6 h-6"
                 />
             </a>
           </div>
@@ -519,12 +487,10 @@ function SectionPitchAccelerate() {
                   rel="noopener"
                 >
                   Propose now
-                  <Image
+                  <img
                     src="/icons/right-arrow.svg"
                     alt=""
-                    className="svg-black ml-5 icon"
-                    width={16}
-                    height={16}
+                    className="svg-black ml-5 icon w-4 h-4"
                   />
                 </a>
               </div>
@@ -559,6 +525,16 @@ function SectionPitchAccelerate() {
 
 // END: Section Pitch Accelerate
 
+function Avatar({ src, name }: { src: string, name: string }) {
+  return (
+    <div
+      className={"rounded-full overflow-hidden border-4 border-solid border-white h-32 w-32 relative"}
+    >
+      <img src={src} alt={name} className="untanglable" />
+    </div>
+  )
+}
+
 function SectionPitchInnovate() {
   return (
     <section id="section-pitch-innovate" className="relative z-0">
@@ -567,13 +543,21 @@ function SectionPitchInnovate() {
         "safe-viewport", "grid gap-4 grid-cols-1 xl:grid-cols-20 3xl:grid-cols-24",
         "overflow-hidden"
       )}>
-        <header className={cn(
-          "row-start-1 xl:col-span-20 3xl:col-span-24",
-          "pt-44 pb-[20px]",
-          "flex flex-col items-center w-full relative"
-        )}>
+        <header
+          className={cn(
+            "row-start-1 xl:col-span-20 3xl:col-span-24",
+            "pt-44 pb-[20px] relative top-4",
+            "flex flex-col items-center w-full relative",
+          )}
+          style={{
+            backgroundImage: 'url("/home/bg-innovate-01.png")',
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+          }}
+        >
           <h2 className="text-[3.5rem] font-black uppercase rounded-3xl px-16 py-4 bg-white inline-block">Innovate</h2>
-          <p className="font-medium text-[2rem] text-black mt-10">Full power, full control. Empower your ideas.</p>
+          <p className="font-medium text-[2rem] text-black mt-10">Full power, Full control. Empower your ideas.</p>
 
           <div className={cn("absolute top-[234px] left-[204px] 3xl:left-[296px]", "w-full h-full", "-z-10 untanglable text-white")}>
             <svg viewBox="0 0 2000 323" fill="transparent">
@@ -678,10 +662,13 @@ self.env().ext().cache_get(b"key");
           </div>
         </div>
 
-        <div className={cn(
-          "row-start-3 xl:col-start-8 xl:col-span-6 3xl:col-start-10 3xl:col-span-6",
-          "mt-6 mb-22"
-        )}>
+        <div
+          className={cn(
+            "row-start-3 xl:col-start-8 xl:col-span-6 3xl:col-start-10 3xl:col-span-6",
+            "mt-6 mb-22",
+            "relative"
+          )}
+        >
           <a
             href="https://docs.phala.network/v1/developers/phat-contract"
             className="btn btn-xl btn-third btn-center-icon w-full uppercase"
@@ -691,6 +678,13 @@ self.env().ext().cache_get(b"key");
             Docs
             <VscNote className="icon h-7 w-7 mt-0.5" />
           </a>
+          <div
+            className={cn(
+              "absolute top-[-100%] right-[-150%] w-[30vw] aspect-square -z-[1]"
+            )}
+          >
+            <img src="/home/bg-gear.png" alt="" />
+          </div>
         </div>
 
         <div className={cn(
@@ -714,7 +708,7 @@ self.env().ext().cache_get(b"key");
               rel="noopener"
             >
               <div className="absolute left-5 z-0">
-                <Image
+                <img
                   src="/home/btn-bg-builders-program.png"
                   alt=""
                   width={275}
@@ -774,27 +768,30 @@ self.env().ext().cache_get(b"key");
         </div>
 
         <div className={cn(
-          "row-start-6 xl:col-start-2 xl:col-span-11 3xl:col-start-5 3xl:col-span-11",
-          "section-chat-with-us pt-48 pb-48 3xl:-ml-8"
+          "row-start-6 xl:col-start-3 xl:col-span-12 3xl:col-start-6",
+          "section-chat-with-us pt-72 pb-48 3xl:pt-64"
         )}>
-          <header className={cn("text-3xl font-medium uppercase leading-normal")}>
-            <h3>Develop and explore your ideas with us</h3>
-          </header>
-          <div className="body">
-            <ul>
-              <li><Image src="/home/avatar-h4x.jpg" alt="Hang" fill className="untanglable" /></li>
-              <li><Image src="/home/avatar-shelven.jpg" alt="Shelven" fill className="untanglable" /></li>
-              <li><Image src="/home/avatar-dan.jpg" alt="Dan" fill className="untanglable" /></li>
-              <li><Image src="/home/avatar-zoe.jpg" alt="Zoe" fill className="untanglable" /></li>
+          <div className="flex flex-row gap-10">
+            <ul className="flex flex-row relative">
+              <li className="relative -right-24 z-[3]"><Avatar src="/home/avatar-h4x.jpg" name="Hang" /></li>
+              <li className="relative -right-16 z-[2]"><Avatar src="/home/avatar-zoe.jpg" name="Zoe" /></li>
+              <li className="relative -right-8 z-[1]"><Avatar src="/home/avatar-dan.jpg" name="Dan" /></li>
+              <li><Avatar src="/home/avatar-shelven.jpg" name="Shelven" /></li>
             </ul>
-            <div>
+            <div className="flex flex-col gap-2.5">
+              <h4 className="font-extrabold text-2xl uppercase">Develop and explore your ideas with us</h4>
               <a
-                className={cn("text-3xl font-normal leading-normal uppercase text-black whitespace-nowrap btn-link")}
-                href="https://discord.com/channels/697726436211163147/1098183647720394772"
+                href="https://discord.gg/2cvTKmF9uh"
+                className="btn btn-lg btn-third btn-center-icon justify-between uppercase"
                 target="_blank"
                 rel="noopener"
               >
                 Chat Now!
+                <img
+                  src="/icons/right-arrow.svg"
+                  alt=""
+                  className="svg-white icon w-4 h-4"
+                />
               </a>
             </div>
           </div>
@@ -806,10 +803,9 @@ self.env().ext().cache_get(b"key");
           </svg>
         </div>
 
-        <div className={cn("row-start-5 row-span-2 xl:col-start-13 xl:col-span-5 3xl:col-start-16", "-mt-7 ml-2 3xl:-mt-12", "-z-10 untanglable text-white")}>
-          <svg viewBox="0 0 470 622" fill="transparent">
-          <path d="M464.5 0V527C464.5 561.794 436.294 590 401.5 590H10.5" stroke="currentColor" strokeWidth="10"/>
-          <path d="M31.002 564L6.41445 588.587C5.63341 589.369 5.6334 590.635 6.41445 591.416L31.0019 616.003" stroke="currentColor" strokeWidth="10" strokeLinecap="round"/>
+        <div className={cn("row-start-5 row-span-2 xl:col-start-15 xl:col-span-3 3xl:col-start-18", "-mt-7 ml-2 3xl:-mt-12", "-z-10 untanglable text-white")}>
+          <svg viewBox="0 0 192 484" fill="none">
+            <path d="M187 0V388.5C187 423.294 158.794 451.5 124 451.5H7.82843C6.04662 451.5 5.15428 453.654 6.41421 454.914L31 479.5" stroke="currentColor" strokeWidth="10"/>
           </svg>
         </div>
       </div>
@@ -834,11 +830,18 @@ function SectionPitchPioneer() {
           className={cn(
             "row-start-1 xl:col-end-20 xl:col-span-13 3xl:col-end-22 3xl:col-span-12",
             "mt-[14rem]",
-            "w-full flex flex-col items-end justify-center"
+            "w-full flex flex-col items-end justify-center relative"
           )}
         >
           <h2 className="text-[3.5rem] font-black uppercase rounded-3xl px-16 py-4 bg-white inline-block">Pioneer</h2>
           <p className="font-medium text-[2rem] text-white mt-6">Work with us on cutting edge research</p>
+          <div
+            className={cn(
+              "absolute top-[-5vw] left-[15vw] 3xl:left-[5vw] w-[30vw] aspect-square -z-[1]"
+            )}
+          >
+            <img src="/home/bg-gear.png" alt="" />
+          </div>
         </header>
 
         <main className={cn("row-start-2 xl:col-start-2 xl:col-span-10 3xl:col-start-4 3xl:col-span-10 mt-32")}>
@@ -861,7 +864,15 @@ function SectionPitchPioneer() {
             <AreaOfInterestTab idx={5} className="bento-6">
               <h4>Distributed Computing</h4>
             </AreaOfInterestTab>
-            <a href="https://discord.com/channels/697726436211163147/1114400898408521778" className={cn("bento-7", "rounded-xl bg-secondary p-6 w-56 h-56 flex flex-col gap-3.5 items-center")}>
+            <a
+              href="https://discord.gg/fKuFDPj2Zh"
+              target="_blank"
+              rel="noopener"
+              className={cn(
+                "bento-7",
+                "rounded-xl btn-third p-6 w-full aspect-square flex flex-col gap-3.5 items-center text-center",
+              )}
+            >
               <span>Join research community</span>
               <VscCommentDiscussion className="w-28 h-28 text-gray-200" />
             </a>
@@ -957,19 +968,24 @@ function SectionHowItWorks() {
         <div className={cn("row-start-2 xl:col-start-2 xl:col-span-18 3xl:col-start-4 3xl:col-span-18")}>
           <HowItWorksCarousel />
         </div>
-        <blockquote className={cn("row-start-3 xl:col-start-2 xl:col-span-9 3xl:col-start-4 3xl:col-span-9 mt-40 mb-16 pr-4", "quote")}>
-          <p>A Decentralized Off-chain Compute Infrastructure like no other.</p>
+        <blockquote
+          className={cn(
+            "row-start-3 xl:col-start-2 xl:col-span-9 3xl:col-start-4 3xl:col-span-9 mt-40 mb-16 pr-4 flex flex-col justify-center",
+            "quote"
+          )}
+        >
+          <p>By the people.</p>
+          <p>For the people.</p>
         </blockquote>
         <div className={cn("row-start-3 xl:col-end-20 xl:col-span-9 3xl:col-end-22", "mt-40 mb-16 px-12 py-14 bg-primary rounded-3xl max-w-[44.75rem]")}>
-          <p className={cn("text-3xl font-normal leading-normal uppercase")}>A Decentralised compute cloud like no other.</p>
+          <p className={cn("text-3xl font-normal leading-normal uppercase")}>A Decentralized Off-chain Compute Infrastructure like no other.</p>
           <p className={cn("text-2xl font-light mb-4")}>Secured by</p>
           <StatsCard />
         </div>
         <div className={cn("row-start-4 xl:col-start-2 xl:col-span-18 3xl:col-start-4 3xl:col-span-18")}>
           <div className={cn("mx-auto rounded-3xl aspect-[1360/760] bg-gray-200 relative overflow-hidden")}>
-            <Image
+            <img
               src="/home/global-network.jpg"
-              fill
               alt=""
             />
           </div>
